@@ -5,16 +5,16 @@ require 'cgi'
 class LyricsDownloader
   DOWNLOADERS = {
     /www\.sing365\.com/ => lambda { |html|
-      html.gsub(/.*<img src=http:\/\/www\.sing365\.com\/images\/phone2\.gif border=0><br><br><\/div>(.*?)^<div align="center"><br><br>.*/m, '\1')
+      html.match(/.*<img src=http:\/\/www\.sing365\.com\/images\/phone2\.gif border=0><br><br><\/div>(.*?)^<div align="center"><br><br>.*/m) && $1
     },
     /www\.azlyrics\.com/ => lambda { |html|
-      html.gsub(/.*^<!-- start of lyrics -->(.*?)^<!-- end of lyrics -->.*/m, '\1')
+      html.match(/.*^<!-- start of lyrics -->(.*?)^<!-- end of lyrics -->.*/m) && $1
     },
     /www\.lyricsfreak\.com/ => lambda { |html|
       Nokogiri(html).search('div#content_h').inner_html
     },
     /www\.lyrics007\.com/ => lambda { |html|
-      html.gsub("\r", "\n").gsub(/.*^\s<\/script><br><br><br>(.*)^<br><br><script type="text\/javascript">.*/m, '\1')
+      html.match("\r", "\n").gsub(/.*^\s<\/script><br><br><br>(.*)^<br><br><script type="text\/javascript">.*/m, '\1') && $1
     }
   }
 
@@ -28,6 +28,7 @@ class LyricsDownloader
         return lyrics
       end
     end
+    nil
   end
 
   private
@@ -51,7 +52,9 @@ class LyricsDownloader
 
   def get_lyrics(url)
     if downloader = downloader_for(url)
-      downloader.call(open(url).read).strip.split(/<br>/i).map(&:strip)
+      if data = downloader.call(open(url).read)
+        data.strip.split(/<br>/i).map(&:strip)
+      end
     end
   end
 end
@@ -67,9 +70,11 @@ if __FILE__ == $0
     if lyrics = LyricsDownloader.new(title).download
       puts lyrics
     else
-      puts "No lyrics found"
+      puts "No lyrics found for #{ title }"
     end
   else
-    puts "Usage: #$0 pink floyd comfortably numb"
+    puts "Usage:"
+    puts "  #$0 pink floyd comfortably numb"
+    puts "  #$0 (with iTunes playing)"
   end
 end
