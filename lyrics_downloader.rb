@@ -2,7 +2,7 @@ require 'nokogiri'
 require 'open-uri'
 require 'cgi'
 
-class LyricDownloader
+class LyricsDownloader
   DOWNLOADERS = {
     /www\.sing365\.com/ => lambda { |html|
       html.gsub(/.*<img src=http:\/\/www\.sing365\.com\/images\/phone2\.gif border=0><br><br><\/div>(.*?)^<div align="center"><br><br>.*/m, '\1')
@@ -64,7 +64,7 @@ if __FILE__ == $0
   end
 
   if title && !title.empty?
-    if lyrics = LyricDownloader.new(title).download
+    if lyrics = LyricsDownloader.new(title).download
       puts lyrics
     else
       puts "No lyrics found"

@@ -1,8 +1,8 @@
 require 'sinatra'
-require './lyrics'
+require './lyrics_downloader'
 
 get '/' do
-  @lyrics = LyricDownloader.new(params[:q]).download if params[:q]
+  @lyrics = LyricsDownloader.new(params[:q]).download if params[:q]
   haml :index
 end
 
