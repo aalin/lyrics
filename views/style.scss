@@ -1,0 +1,48 @@
+html {
+	background-color: #80002f;
+	font-size: 12px;
+	font-family: Helvetica;
+}
+
+#content {
+	width: 600px;
+	margin: 0px auto;
+	background-color: #fff;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	text-align: center;
+
+	h1 {
+		margin: 0px;
+		padding: 20px;
+		background-color: #f0f0f0;
+		border-bottom: 1px solid #ccc;
+
+		border-radius: 5px 5px 0px 0px;
+		-webkit-border-radius: 5px 5px 0px 0px;
+		-moz-border-radius: 5px 5px 0px 0px;
+	}
+
+	.lyrics {
+		font-size: larger;
+	}
+
+	form {
+		input {
+			font-size: 20px;
+			margin: 20px;
+			width: 50%;
+			border: 1px solid #ccc;
+		}
+	}
+
+	.footer {
+		border-top: 1px solid #ccc;
+		background-color: #f0f0f0;
+		color: #666;
+		border-radius: 0px 0px 5px 5px;
+		-webkit-border-radius: 0px 0px 5px 5px;
+		-moz-border-radius: 0px 0px 5px 5px;
+	}
+}

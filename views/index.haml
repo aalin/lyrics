@@ -1,0 +1,14 @@
+!!! 5
+%html
+  %head
+    %title Lyrics
+    %link{ :rel => "stylesheet", :href => "style.css" }
+  %body
+    #content
+      %h1 Lyrics
+      %form{ :action => '/', :method => 'get' }
+        %input{ :type => 'text', :name => 'q', :value => params[:q] }
+      - if @lyrics
+        %p.lyrics= @lyrics.join("<br>")
+      %p.footer
+        Lyrics stolen from different websites.
